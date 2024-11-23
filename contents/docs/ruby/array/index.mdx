@@ -1,0 +1,870 @@
+---
+title: Arrays
+description: An Array is an ordered, integer-indexed collection of objects, called _elements_. Any object (even another array) may be an array element, and an array can contain objects of different types.
+---
+
+📖 <a href="http://www.ruby-doc.org/core/Array.html" target="_blank">Documentation</a>
+
+➕ Includes module <a href="https://ruby-doc.org/core/Enumerable.html" target="_blank">Enumerable</a>, which provides dozens of additional methods.
+
+## Methods for Creating
+
+```ruby
+empty_array = []                    #=> []
+arr = ['a', 'b', 'c', 'd']          #=> ['a', 'b', 'c', 'd']
+%w[1 % *]                           #=> ["1", "%", "*"]
+%i[foo bar baz]                     #=> [:foo, :bar, :baz]
+Array(1..5)                         #=> [1, 2, 3, 4, 5]
+Array({:a => "a", :b => "b"})       #=> [[:a, "a"], [:b, "b"]]
+```
+
+Another way to create an array with various objects, using a block; this usage is safe for mutable objects such as hashes, strings or other arrays:
+
+```ruby
+Array.new(4) {|i| i.to_s }          #=> ["0", "1", "2", "3"]
+```
+
+Here is a way to create a multi-dimensional array:
+
+```ruby
+Array.new(2) {Array.new(2)}          #=> [[nil, nil, nil], [nil, nil, nil]]
+```
+
+## Methods for Querying
+
+### length, count, size
+
+Returns the count of elements.
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.length                          #=> 6
+arr.count                           #=> 6
+arr.size                            #=> 6
+```
+
+### include?
+
+Returns whether any element `==` a given object.
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.include?('c')                   #=> true
+```
+
+### empty?
+
+Returns whether there are no elements.
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.empty?                          #=> false
+```
+
+### all?
+
+Returns whether **all** elements meet a given criterion.
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.all? { |element| element.is_a? String }       #=> true
+```
+
+### any?
+
+Returns whether any element meets a given criterion.
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.any? { |element| element > 1 }   #=> true
+```
+
+### none?
+
+Returns whether **no** element `==` a given object.
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.none? { |element| element > 6 }  #=> true
+```
+
+### one?
+
+Returns whether exactly **one** element `==` a given object.
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.one? { |element| element == 5 }  #=> true
+```
+
+### find_index, index
+
+Returns the index of the **first** element that meets a given criterion.
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.find_index { |element| element == 'c' }       #=> 2
+
+arr = [1, 2, 3, 4, 5, 6]
+arr.index(3)                        #=> 2
+```
+
+### rindex
+
+Returns the index of the **last** element that meets a given criterion.
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.rindex { |element| element == 'c' }           #=> 2
+```
+
+### hash
+
+Returns the integer hash code.
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.hash                           #=> 123456
+```
+
+## Methods for Comparing
+
+Returns -1, 0, or 1 \* as `self` is less than, equal to, or greater than a given object
+
+```ruby
+['a', 'b', 'c'] <=> ['a', 'b', 'c']  #=> 0
+['a', 'b', 'c'] <=> ['a', 'b', 'd']  #=> -1
+['a', 'b', 'c'] <=> ['a', 'b', 'b']  #=> 1
+```
+
+### ==
+
+Returns whether each element in `self` is `==` to the corresponding element in a given object
+
+```ruby
+['a', 'b', 'c'] == ['a', 'b', 'c']  #=> true
+```
+
+### eql?
+
+Returns whether each element in `self` is `eql?` to the corresponding element in a given object
+
+```ruby
+['a', 'b', 'c'].eql? ['a', 'b', 'c'] #=> true
+```
+
+## Methods for Fetching
+
+⚠️ These methods do not modify _self_
+
+- Index `0` indicates the first element
+- Index `-1` indicates the last element
+
+### []
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr[0]                              #=> "a"
+arr[-1]                             #=> "f"
+arr[100]                            #=> nil
+arr[1..2]                           #=> ["b", "c"]
+```
+
+### fetch
+
+Returns the element at a given offset. Raise an error for indices outside of the array
+
+```ruby
+arr.fetch(100, "oops")              #=> "oops"
+```
+
+### first
+
+Returns **one** or **more** leading elements
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.first                           #=> "a"
+arr.first(2)                        #=> ["a", "b"]
+```
+
+### last
+
+Returns **one** or **more** trailing elements
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.last                            #=> "f"
+arr.last(2)                         #=> ["e", "f"]
+```
+
+### max
+
+Returns **one** or **more** maximum-valued elements
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.max                             #=> "f"
+arr.max(2)                          #=> ["f", "e"]
+```
+
+### min
+
+Returns **one** or **more** minimum-valued elements
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.min                             #=> "a"
+arr.min(2)                          #=> ["a", "b"]
+```
+
+### minmax
+
+Returns the minimum-valued and maximum-valued elements
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.minmax                          #=> ["a", "f"]
+```
+
+### assoc
+
+Returns the **first** element that is an array whose first element `==` a given object
+
+```ruby
+arr = [[2, 4], [4, 5, 6], [4, 5]]
+arr.assoc(4)                        #=> [2, 4]
+```
+
+### rassoc
+
+Returns the first element that is an array whose second element `==` a given object
+
+```ruby
+arr = [[2, 4], [4, 5, 6], [4, 5]]
+arr.rassoc(4)                       #=> [2, 4]
+```
+
+### at
+
+Returns the element at a given offset
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.at(0)                           #=> "a"
+```
+
+### values_at
+
+Returns the elements at given offsets
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.values_at(0, 2, 4)              #=> ["a", "c", "e"]
+```
+
+### dig
+
+Returns the object in **nested** objects that is specified by a given index and additional arguments
+
+```ruby
+arr = [[1, [2, 3]], [4, 5], 6]
+arr.dig(0, 1, 1)                    #=> 3
+```
+
+### drop
+
+Returns **trailing** elements as determined by a given index
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.drop(2)                         #=> ["c", "d", "e", "f"]
+```
+
+### take
+
+Returns **leading** elements as determined by a given index
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.take(2)                         #=> ["a", "b"]
+```
+
+### drop_while
+
+Returns **trailing** elements as determined by a given block
+
+```ruby
+arr = [0, 1, 2, 3, 4, 5]
+arr.drop_while { |element| element < 3 } # => [3, 4, 5]
+```
+
+### take_while
+
+Returns **leading** elements as determined by a given block.
+
+```ruby
+arr = [0, 1, 2, 3, 4, 5]
+arr.take_while { |element| element < 3 } # => [0, 1, 2]
+```
+
+### slice
+
+Returns consecutive elements as determined by a given argument
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.slice(2)                        #=> "c"
+arr.slice(2, 3)                     #=> ["c", "d", "e"]
+arr.slice(2..4)                     #=> ["c", "d", "e"]
+```
+
+### sort
+
+Returns all elements in an order determined
+
+```ruby
+arr = ["e", "b", "d", "a", "c"]
+arr.sort                            #=> ["a", "b", "c", "d", "e"]
+arr.sort { |a, b| b <=> a }           #=> ["e", "d", "c", "b", "a"]
+```
+
+### reverse
+
+Returns all elements in reverse order
+
+```ruby
+arr = ["e", "b", "d", "a", "c"]
+arr.reverse                         #=> ["c", "a", "d", "b", "e"]
+```
+
+### compact
+
+Returns an array containing all **non-`nil`** elements
+
+```ruby
+arr = [1, nil, 2, nil, 3, nil]
+arr.compact                         #=> [1, 2, 3]
+```
+
+### select, filter
+
+Returns an array containing elements selected by a given block
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.select { |element| element > 3 }  #=> [4, 5, 6]
+
+arr = [:foo, 'bar', 2, :bam]
+arr = a.select { |element| element.to_s.start_with?('b') } #=> ['bar', :bam]
+```
+
+### reject
+
+Returns an array containing elements **not** selected by a given block
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.reject { |element| element < 3 }  #=> [3, 4, 5, 6]
+```
+
+### grep
+
+Returns an array containing elements that match a given pattern
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.grep(/[a-c]/)                   #=> ["a", "b", "c"]
+```
+
+### grep_v
+
+Returns an array containing elements that **do not** match a given pattern
+
+```ruby
+arr = ['a', 'b', 'c', 'd', 'e', 'f']
+arr.grep_v(/[a-c]/)                 #=> ["d", "e", "f"]
+```
+
+### uniq
+
+Returns an array containing non-duplicate elements
+
+```ruby
+arr = [1, 2, 2, 3, 4, 4, 5]
+arr.uniq                            #=> [1, 2, 3, 4, 5]
+```
+
+### rotate
+
+Returns **all** elements with some rotated from one end to the other
+
+```ruby
+arr = ['a', 'b', 'c', 'd']
+arr.rotate                        #=> ["b", "c", "d", "a"]
+arr.rotate(2)                     #=> ["c", "d", "a", "b"]
+```
+
+### bssearch
+
+Returns an element selected via a binary search as determined by a given block
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.bsearch { |element| element > 3 }  #=> 4
+```
+
+### bsearch_index
+
+Returns the index of an element selected via a binary search as determined by a given block
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.bsearch_index { |element| element > 3 }  #=> 3
+```
+
+### sample
+
+Returns **one** or **more** random elements
+
+```ruby
+arr = ['a', 'b', 'c', 'd']
+arr.sample                        #=> "c"
+arr.sample(2)                     #=> ["b", "d"]
+```
+
+### shuffle
+
+Returns elements in a random order
+
+```ruby
+arr = ['a', 'b', 'c', 'd']
+arr.shuffle                        #=> ["c", "a", "d", "b"]
+```
+
+## Methods for Assigning
+
+⚠️ These methods add, replace, or reorder elements in `self`
+
+### []=
+
+Assigns specified elements with a given object
+
+```ruby
+arr = ['a', 'b', 'c', 'd']
+arr[1] = 'z'                        #=> ['a', 'z', 'c', 'd']
+arr[2..3] = ['x', 'y']              #=> ['a', 'z', 'x', 'y']
+```
+
+### push, append
+
+Appends trailing elements
+
+```ruby
+arr = ['a', 'b', 'c']
+arr << 'd'                          #=> ['a', 'b', 'c', 'd']
+arr.push('3')                       #=> ['a', 'b', 'c', 'd', 'e']
+```
+
+### unshift
+
+Prepends leading elements
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.unshift('z')                    #=> ['z', 'a', 'b', 'c']
+```
+
+### insert
+
+Inserts given objects at a given offset; does not replace elements
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.insert(2, 'z')                  #=> ['a', 'b', 'z', 'c']
+arr.insert(2, 'y', 'x')             #=> ['a', 'b', 'y', 'x', 'z', 'c']
+```
+
+### concat
+
+Appends all elements from given arrays
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.concat(['d', 'e'])              #=> ['a', 'b', 'c', 'd', 'e']
+```
+
+### fill
+
+Replaces specified elements with specified objects
+
+```ruby
+arr = ['a', 'b', 'c', 'd']
+arr.fill('z', 1, 2)                 #=> ['a', 'z', 'z', 'd']
+```
+
+### replace
+
+Replaces the content of `self` with the content of a given array
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.replace(['x', 'y', 'z'])        #=> ['x', 'y', 'z']
+```
+
+### sort_by!
+
+Replaces `self` with its elements sorted, as determined by a given block
+
+```ruby
+arr = ['c', 'a', 'b']
+arr.sort_by! { |x| x }              #=> ['a', 'b', 'c']
+```
+
+## Methods for Deleting
+
+⚠️ Each of these methods removes elements from `self`:
+
+### pop
+
+Removes and returns the **last** element
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.pop                             #=> 'c'
+#=> ['a', 'b']
+```
+
+### shift
+
+Removes and returns the **first** element
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.shift                           #=> 'a'
+#=> ['b', 'c']
+```
+
+### delete
+
+Removes elements equal to a given object
+
+```ruby
+arr = ['a', 'b', 'c', 'b']
+arr.delete('b')                     #=> 'b'
+#=> ['a', 'c']
+```
+
+### delete_at
+
+Removes the element at a given offset
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.delete_at(1)                    #=> 'b'
+#=> ['a', 'c']
+```
+
+### delete_if
+
+Removes elements specified by a given block.
+
+```ruby
+arr = [1, 2, 3, 4, 5]
+arr.delete_if { |element| element < 3 }  #=> [3, 4, 5]
+```
+
+### keep_if
+
+Removes elements not specified by a given block
+
+```ruby
+arr = [1, 2, 3, 4, 5]
+arr.keep_if { |element| element < 3 }    #=> [1, 2]
+```
+
+### Clear
+
+Removes all elements
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.clear                           #=> []
+```
+
+## Methods for Combining
+
+### &
+
+Returns an array containing elements found **both** in `self` and a given array
+
+```ruby
+[0, 1, 2, 3] & [0, 1, 2]            # => [0, 1, 2]
+```
+
+### intersection
+
+Returns an array containing elements found both in `self` and in each given array
+
+```ruby
+[0, 1, 2, 3].intersection([0, 1, 2], [0, 1, 3])        # => [0, 1]
+[0, 0, 1, 1, 2, 3].intersection([0, 1, 2], [0, 1, 3])  # => [0, 1]
+```
+
+### +
+
+Returns an array containing all elements of `self` followed by all elements of a given array
+
+```ruby
+arr = [0, 1] + [2, 3]               # => [0, 1, 2, 3]
+```
+
+### -
+
+Returns an array containing all elements of `self` that are not found in a given array
+
+```ruby
+[0, 1, 1, 2, 1, 1, 3, 1, 1] - [1]   # => [0, 2, 3]
+[0, 1, 2, 3] - [3, 0]               # => [1, 2]
+[0, 1, 2] - [4]                     # => [0, 1, 2]
+```
+
+- #|: Returns an array containing all elements of `self` and all elements of a given array, duplicates removed
+
+### union
+
+Returns an array containing all elements of `self` and all elements of given arrays, **duplicates removed**
+
+```ruby
+arr = [1, 2, 3]
+arr.union([3, 4, 5])                #=> [1, 2, 3, 4, 5]
+```
+
+### difference
+
+Returns an array containing all elements of `self` that are not found in any of the given arrays
+
+```ruby
+arr = [1, 2, 3, 4, 5]
+arr.difference([3, 4])              #=> [1, 2, 5]
+```
+
+### product
+
+Returns or yields all combinations of elements from `self` and given arrays
+
+```ruby
+arr = [1, 2]
+arr.product([3, 4])                 #=> [[1, 3], [1, 4], [2, 3], [2, 4]]
+```
+
+## Methods for Iterating
+
+### each
+
+Passes each element to a given block
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.each { |element| puts element } #=> a, b, c
+
+arr.each do |element|
+  puts element
+end                                 #=> a, b, c
+```
+
+### reverse_each
+
+Passes each element, in reverse order, to a given block
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.reverse_each { |element| puts element }  #=> c, b, a
+
+arr.reverse_each do |element|
+  puts element
+end                                         #=> c, b, a
+```
+
+### each_index
+
+Passes each element index to a given block
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.each_index { |index| puts index }       #=> 0, 1, 2
+
+arr.each_index do |index|
+  puts index
+end                                         #=> 0, 1, 2
+```
+
+### cycle
+
+Calls a given block with each element, then does so again, for a specified number of times, or forever
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.cycle(2) { |element| puts element }     #=> a, b, c, a, b, c
+
+arr.cycle do |element|
+  puts element
+end                                         #=> a, b, c, a, b, c, a, b, c, ...
+```
+
+### combination
+
+Calls a given block with combinations of elements of `self`; a combination does not use the same element more than once
+
+```ruby
+arr = [1, 2, 3]
+arr.combination(2).to_a             #=> [[1, 2], [1, 3], [2, 3]]
+```
+
+### permutation
+
+Calls a given block with permutations of elements of `self`; a permutation does not use the same element more than once
+
+```ruby
+arr = [1, 2, 3]
+arr.permutation(2).to_a             #=> [[1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2]]
+```
+
+### repeated_combination
+
+Calls a given block with combinations of elements of `self`; a combination may use the same element more than once.
+
+```ruby
+arr = [1, 2, 3]
+arr.repeated_combination(2).to_a    #=> [[1, 1], [1, 2], [1, 3], [2, 2], [2, 3], [3, 3]]
+```
+
+### repeated_permutation
+
+Calls a given block with permutations of elements of `self`; a permutation may use the same element more than once
+
+```ruby
+arr = [1, 2, 3]
+arr.repeated_permutation(2).to_a    #=> [[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]]
+```
+
+## Methods for Converting
+
+### map, collect
+
+Returns an array containing the block return-value for each element
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.map { |element| element * 2 }  #=> [2, 4, 6, 8, 10, 12]
+
+arr.map do |element|
+  element * 2
+end                                #=> [2, 4, 6, 8, 10, 12]
+```
+
+### flatten
+
+Returns an array that is a recursive flattening of `self`
+
+```ruby
+arr = [1, [2, [3, 4]]]
+arr.flatten                         #=> [1, 2, 3, 4]
+```
+
+### inspect, to_s
+
+Returns a new `String`containing the elements
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.inspect                         #=> "[\"a\", \"b\", \"c\"]"
+arr.to_s                            #=> "abc"
+```
+
+### join
+
+Returns a newsString containing the elements joined by the field separator
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.join                            #=> "abc"
+arr.join('-')                       #=> "a-b-c"
+```
+
+### to_a
+
+Returns `self` or a new array containing all elements
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.to_a                            #=> ['a', 'b', 'c']
+```
+
+### to_ary
+
+Returns `self`
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.to_ary                          #=> ['a', 'b', 'c']
+```
+
+### to_h
+
+Returns a new hash formed from the elements
+
+```ruby
+arr = [[:a, 1], [:b, 2], [:c, 3]]
+arr.to_h                            #=> {:a=>1, :b=>2, :c=>3}
+```
+
+### transpose
+
+Transposes `self`, which must be an array of arrays
+
+```ruby
+arr = [[1, 2], [3, 4], [5, 6]]
+arr.transpose                       #=> [[1, 3, 5], [2, 4, 6]]
+```
+
+### zip
+
+Returns a new array of arrays containing `self` and given arrays; follow the link for details
+
+```ruby
+arr = [1, 2, 3]
+arr.zip(['a', 'b', 'c'], [4, 5, 6])  #=> [[1, "a", 4], [2, "b", 5], [3, "c", 6]]
+```
+
+## Other Methods
+
+### \*
+
+Returns one of the following
+
+```ruby
+arr = ['a', 'b', 'c']
+arr * 2                             #=> ['a', 'b', 'c', 'a', 'b', 'c']
+arr * ','                           #=> 'a,b,c'
+```
+
+### pack
+
+Packs the elements into a binary sequence
+
+```ruby
+arr = ['a', 'b', 'c']
+arr.pack('A3A3A3')                 #=> "a  b  c  "
+```
+
+### sum
+
+Returns a sum of elements according to either `+` or a given block
+
+```ruby
+arr = [1, 2, 3, 4, 5, 6]
+arr.sum                             #=> 21
+```
+
+

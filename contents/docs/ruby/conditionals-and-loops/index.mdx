@@ -1,0 +1,174 @@
+---
+title: Conditionals and Loops
+description: Conditionals and Loops in Ruby
+---
+
+## Conditionals
+
+✅ ruby everything is _truthy_ except `false` and `nil`.
+
+### if / elsif / else
+
+```ruby
+hour = Time.now.hour
+
+if hour < 12
+  # executed when condition is truthy
+  puts "Good morning!"
+elsif hour > 12
+  # executed when condition is truthy
+  puts "Good afternoon!"
+elsif hour >= 20
+  # executed when condition is truthy
+  puts "Good night!"
+else
+  # executed when condition is not truthy
+  puts "Lunch time!"
+end
+```
+
+⚠️ The order of the conditions may matter!
+
+### if !
+
+```ruby
+if !condition
+  # code executed only when condition is not "truthy"
+end
+```
+
+### unless
+
+```ruby
+unless condition
+  # code executed only when condition is not "truthy"
+end
+```
+
+### Ternary operator
+
+```ruby
+puts "heads or tails?"
+choice = gets.chomp
+coin = ["heads", "tails"].sample
+
+result = (choice == coin) ? "winner" : "loser"
+puts "#{result}, that was #{coin}"
+```
+
+### case / when / else
+
+```ruby
+puts "What do you want to do?"
+action = gets.chomp
+
+case action
+when "read"
+  puts "You are in READ mode"
+when "write"
+  puts "You are in WRITE mode"
+when "exit"
+  puts "Bye Bye"
+else
+  puts "Wrong action"
+end
+```
+
+### Inline conditions
+
+For short single-line statements or methods that return a boolean value.
+
+```ruby
+# do_something if condition
+# do_something unless condition
+
+number = gets.chomp.to_i
+puts "your number #{number} is even!" if number.even?
+
+# or
+
+def allowed_to_vote?(age)
+  age >= 18
+end
+```
+
+### Multiple conditions - AND
+
+`&&` is the logical AND
+
+```ruby
+true  && true             #=> true
+false && false            #=> false
+true  && false            #=> false
+false && true             #=> false
+true  && false && true    #=> ?
+```
+
+### Multiple conditions - OR
+
+`||` is the logical OR
+
+```ruby
+true  || true            #=> true
+false || false           #=> false
+true  || false           #=> true
+false || true            #=> true
+true  || false || true   #=> ?
+```
+
+Exemple:
+
+```ruby
+hour = Time.now.hour
+
+if (hour > 9 && hour < 12) || (hour > 14 && hour < 18)
+  puts "The shop is opened!"
+else
+  puts "Sorry, the shop is closed..."
+end
+```
+
+## Loops
+### for
+
+Used for iterating over a collection of elements.
+
+```ruby
+for num in [1, 2, 3]
+  puts num
+end
+```
+
+### until
+
+Used when a condition is false and you don't know how many times you will loop.
+
+```ruby
+price_to_find = rand(1..5)
+choice = nil     # variable initialization
+
+until choice == price_to_find
+  # executed until condition is truthy
+  puts "How much (between $1 and $5)?"
+  choice = gets.chomp.to_i
+end
+
+puts "You won! Price was #{price_to_find}$"
+```
+
+### while
+
+Used when a condition is truthy and you don't know how many times you will loop.
+
+```ruby
+price_to_find = rand(1..5)
+choice = nil     # variable initialization
+
+while choice != price_to_find
+  # executed while condition is truthy
+  puts "You won! Price was #{price_to_find}$"
+
+  puts "How much (between $1 and $5)?"
+  choice = gets.chomp.to_i
+end
+```

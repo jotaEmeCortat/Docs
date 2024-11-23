@@ -1,0 +1,87 @@
+---
+title: Command Line
+description: This section provides an overview of Command Line.
+---
+
+## Basic commands
+
+| Command              | Description                      | Example        |
+| -------------------- | -------------------------------- | -------------- |
+| `echo <string>`      | Print string to screen           | `$ echo hello` |
+| `man <command>`      | Display manual page for command  | `$ man echo`   |
+| `pwd`                | Print working directory          | `$ pwd`        |
+| `cd <FOLDER_NAME>`   | Change directory                 | `$ cd folder`  |
+| `mkdir <NEW_FOLDER>` | Create new directory             | `$ mkdir new`  |
+| `touch <FILE_NAME>`  | Create new file                  | `$ touch file` |
+| `ctrl-C`             | Get out of trouble               | `$ tail^C`     |
+| `ctrl-A`             | Move to beginning of line        |                |
+| `ctrl-E`             | Move to end of line              |                |
+| `ctrl-U`             | Delete to beginning of line      |                |
+| `up & down arrow`    | Scroll through previous commands |                |
+| `clear` or `ctrl-L`  | Clear screen                     | `$ clear`      |
+| `exit` or `ctrl-D`   | Exit terminal                    | `$ exit`       |
+| `history`            | Show command history             | `$ history`    |
+| `ctrl-R`             | Search command history           |                |
+
+## wildcards
+
+### \*
+
+List all files in the current directory that have a `<extension name>` extension.
+
+exemple :
+
+```bash
+ls *.txt
+# list all files with the .txt extension
+```
+
+### &&
+
+Run multiple commands in a single line.
+
+exemple :
+
+```bash
+echo hello && echo world
+# print hello and world
+```
+
+## Listing files
+
+| Command | Description                        | Example      |
+| ------- | ---------------------------------- | ------------ |
+| `ls`    | List files in directory            | `$ ls`       |
+| `ls`    | List files with extension          | `$ ls *.txt` |
+| `ls -l` | List files with details            | `$ ls -l`    |
+| `ls -a` | List all files (even hidden files) | `$ ls -a`    |
+
+## Manipulating files
+
+| Command | Description               | Example                            |
+| ------- | ------------------------- | ---------------------------------- |
+| `>`     | Redirect output to a file | `$ echo hello > <FILE_NAME>`       |
+| `>>`    | Append output to a file   | `$ echo world >> <FILE_NAME>`      |
+| `cat`   | Display file content      | `$ cat <FILE_NAME>`                |
+| `diff`  | Compare files             | `$ diff <FILE_NAME> <FILE_NAME>`   |
+| `mv`    | Rename files              | `$ mv <FILE_NAME> <NEW_FILE_NAME>` |
+| `mv`    | Move files                | `$ mv <FILE_NAME> <FOLDER_NAME>`   |
+| `cp`    | Copy files                | `$ cp <FILE_NAME> <FILE_NAME>`     |
+| `rm`    | Remove files              | `$ rm <FILE_NAME>`                 |
+| `rm -r` | Remove directories        | `$ rm -r <FOLDER_NAME>`            |
+| `rm -f` | Force remove files        | `$ rm -f <FILE_NAME>`              |
+
+## Searching
+
+| Command  | Description                       | Example                          |
+| -------- | --------------------------------- | -------------------------------- |
+| `grep`   | Search for text                   | `$ grep <STRING>`                |
+| `grep i` | Search for a string ignoring case | `$ grep -i <STRING> <FILE_NAME>` |
+| `grep r` | Search recursively                | `$ grep -r <STRING> <FOLDER>`    |
+| `find`   | Find files                        | `$ find <FILE>`                  |
+
+## Networking
+
+| Command | Description     | Example           |
+| ------- | --------------- | ----------------- |
+| `curl`  | Download a file | `$ curl -O <URL>` |

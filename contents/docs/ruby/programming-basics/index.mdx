@@ -1,0 +1,335 @@
+---
+title: Programming Basics
+description: Programming Basics in Ruby
+---
+
+## Built-in objects
+
+In Ruby everything is an object.
+
+```ruby
+"Sponge Bob".class              #=> String
+12.class                        #=> Integer
+3.14.class                      #=> Float
+["Sponge Bob", 12, 3.14].class  #=> Array
+true.class                      #=> TrueClass
+false.class                     #=> FalseClass
+(1..100).class                  #=> Range
+```
+
+## Run your code
+
+### IRB (Interactive Ruby)
+
+`irb` is a [REPL](http://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) for Ruby. It works like this:
+
+1.  It **R**-eads the expression written by the user, which can be any valid Ruby expression like `"Hello"`, `2+2`, `"hello".upcase` …
+2.  It **E**-valuates the result of this expression.
+3.  It **P**-rints this result.
+4.  It **L**-oops back to point 1, waiting for a new user input.
+
+Run `irb` to launch a ruby interpreter.
+
+```bash
+$ irb
+pry(main)> 4 + 2
+=> 6
+```
+
+### Running a ruby file
+
+Launch your ruby script with
+
+```bash
+ruby path/to/your/file.rb
+```
+
+### Puts (put string)
+
+Use `puts` to test results of your script.
+
+```ruby
+puts "Hello, world!"
+```
+
+### Integer
+
+⚠️ Used to be `Fixnum` in Ruby versions < 2.4.0
+
+```ruby
+# Standard arithmetic
+1 + 2      #=> 3
+2 * 4      #=> 8
+# Built-in methods
+20.even?   #=> true
+20.odd?    #=> false
+```
+
+Conversion to string
+
+```ruby
+1984.to_s    #=> "1984"
+```
+
+### Float
+
+```ruby
+3.1416.truncate   #=> 3
+1.618.round       #=> 2
+```
+
+### Range
+
+```ruby
+(1..10).to_a       #=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+(1...10).to_a      #=> [1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+### Special values
+
+```ruby
+nil
+```
+
+```ruby
+false
+true
+```
+
+### Ruby doc is your friend!
+
+Want to perform some basic manipulation?
+
+- shuffle an array
+- capitalize a word
+- split a word into an array of characters
+- etc.
+
+### Do not re-invent the Wheel
+
+📖 <a href="https://www.ruby-doc.org/core/" target="_blank">Documentation</a>
+
+---
+
+## Variables
+
+**Deeply** understand them!
+
+They are an **elementary block of programming**.
+
+### Why variables?
+
+Store values to re-use them
+
+```ruby
+age = 17
+puts "You are #{age} years old"
+
+puts "Lucky you, it's your birthday!"
+age = age + 1
+puts "You are now #{age}"
+```
+
+### Assigning
+
+```ruby
+city = "paris"
+population = 2000000
+
+city_details = "T#{city}, France"
+```
+
+### Reassigning / Incrementing
+
+```ruby
+population = population + 3000
+```
+
+---
+
+## Methods
+
+### Problem
+
+```
+
+puts "Hello John!"
+puts "Hello Paul!"
+puts "Hello Ringo!"
+
+```
+
+We want to change `Hello` with `Hi` and `!` with a full stop `.`
+
+### Solution: a method
+
+**Factoring** your code
+
+```
+
+def say_hi(name)
+return "Hi #{name}."
+end
+
+puts say_hi("Alex") # => "Hi Alex."
+puts say_hi("Edward") # => "Hi Edward."
+
+```
+
+Don’t Repeat Yourself ([DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself))
+
+### Why methods?
+
+Apply some ruby code to **dynamic inputs**, over and over again
+
+```
+
+def full_name(first_name, last_name)
+name = first_name.capitalize + " " + last_name.capitalize
+return name
+end
+
+puts full_name("boris", "paillard") # => "Boris Paillard"
+puts full_name("seb", "saunier") # => "Seb Saunier"
+
+```
+
+### Combine variables and methods
+
+```
+
+def max(x, y)
+if x > y
+return x
+else
+return y
+end
+end
+
+first_number = 2
+second_number = 5
+largest_number = max(first_number, second_number)
+puts largest_number # => 5
+
+```
+
+### Parameters vs. Arguments
+
+```
+
+def new_population(population, births)
+return population + births
+end
+
+```
+
+- `population` and `births` are **parameters**
+
+```
+
+puts new_population(2000000, 300)
+
+```
+
+- `2000000` and `300` are **arguments**
+- the parameters are going to take the values of the arguments
+
+### Method with no parameter
+
+Some methods may not need parameter
+
+```
+
+def tomorrow
+tomorrow_date = Date.today + 1
+return tomorrow_date.strftime("%B %d")
+end
+
+puts tomorrow # => "October 4"
+
+```
+
+### The return convention
+
+A method returns the **last statement executed**.
+
+```
+
+def add(x, y)
+return x + y
+end
+
+# is the same as
+
+def add(x, y)
+x + y
+end
+
+```
+
+### Conventions
+
+Methods and variables in **snake_case**
+
+```
+
+good_method_or_variable_name
+
+```
+
+### Conventions
+
+a method ending with a `?` returns `true` or `false`
+
+```
+
+42.even? #=> true
+42.odd? #=> false
+
+```
+
+a method ending with a `!` is destructive or dangerous
+
+```
+
+text = 'Hello'
+
+text.upcase
+#=> "HELLO"
+
+text
+#=> "Hello"
+
+text.upcase!
+#=> "HELLO"
+
+text
+#=> "HELLO"
+
+```
+
+## Scripts
+
+### External scripts
+
+External scripts are a way to acesse Ruby libraries. You can use them to extend the functionality of your code.
+
+```ruby
+# tomorrow.rb
+require 'date'
+
+def tomorrow
+  tomorrow_date = Date.today + 1
+  return tomorrow_date.strftime("%B %d")
+end
+```
+
+### Internal scripts
+
+Internal scripts are a way to organize your code. You can use them to separate your code into smaller, more manageable pieces.
+
+```ruby
+require_relative "tomorrow"
+
+puts tomorrow # => "October 4"
+```

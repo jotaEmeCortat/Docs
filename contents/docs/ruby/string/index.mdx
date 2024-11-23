@@ -1,0 +1,598 @@
+---
+title: String
+description: A String object has an arbitrary sequence of bytes, typically representing text or binary data.
+---
+
+📖 <a href="http://www.ruby-doc.org/core/String.html" target="_blank">Documentation</a>
+
+⚠️ `String` objects differ from `Symbol` objects in that `Symbol` objects are designed to be used as identifiers, instead of text or data.
+
+## Interpolation
+
+In Ruby, you can use interpolation to embed expressions within a string. _Single-quoted_ strings do **not** support interpolation, while _double-quoted_ strings do.
+
+```ruby
+'two: #{1 + 1}'      #=> "two: #{1 + 1}" (no interpolation)
+"two: #{1 + 1}"      #=> "two: 2"       (interpolation)
+```
+
+## Methods for Creating
+
+```ruby
+String.new("hello")                 #=> "hello"
+str = "Hello, World!"
+```
+
+## Methods for Querying
+
+### length, count, size
+
+Returns the count of characters (not bytes)
+
+```ruby
+str = "Hello, World!"
+str.length                          #=> 13
+str.count("lo")                     #=> 3
+str.size                            #=> 13
+```
+
+### include?
+
+Returns `true` if the string contains a given substring
+
+```ruby
+"Hello, World!".include?("World")   #=> true
+```
+
+### empty?
+
+Returns `true` if `self.length` is zero; `false` otherwise
+
+```ruby
+"".empty?                           #=> true
+"Hello".empty?                      #=> false
+```
+
+### [], index
+
+Returns the index of the **first** occurrence of a given substring; returns `nil` if none found
+
+```ruby
+"Hello, World!"[2]                  #=> "l"
+"Hello, World!".index("ol")         #=> 4
+"Hello, World!".index("ol", 5)      #=> 7
+```
+
+### rindex
+
+Returns the index of the **last** occurrence of a given substring
+
+```ruby
+"Hello, World!".rindex("l")         #=> 10
+```
+
+### hash
+
+Returns the integer hash code
+
+```ruby
+"Hello, World!".hash                #=> 215721073
+```
+
+### bytesize
+
+Returns the count of bytes
+
+```ruby
+"Hello, World!".bytesize            #=> 13
+```
+
+### match
+
+Returns a `MatchData` if the string matches a given `Regexp`
+
+```ruby
+"Hello, World!".match(/lo/)         #=> #<MatchData "lo">
+"Hello, World!".match?(/lo/)        #=> true
+```
+
+### start_with?
+
+Returns `true` if the string begins with any of the given substrings
+
+```ruby
+"Hello, World!".start_with?("Hello") #=> true
+```
+
+### end_with?
+
+Returns `true` if the string ends with any of the given substrings
+
+```ruby
+"Hello, World!".end_with?("World")   #=> true
+```
+
+### encoding
+
+Returns the `Encoding` object that represents the encoding of the string
+
+```ruby
+"Hello, World!".encoding            #=> #<Encoding:UTF-8>
+```
+
+### valid_encoding?
+
+Returns `true` if the string contains only characters that are valid for its encoding
+
+```ruby
+"Hello, World!".valid_encoding?     #=> true
+"\xC2".valid_encoding?              #=> false
+```
+
+### ascii_only?
+
+Returns `true` if the string has only ASCII characters
+
+```ruby
+"Hello, World!".ascii_only?         #=> true
+"Hello, \xC2 World!".ascii_only?    #=> false
+```
+
+### sum
+
+Returns a basic checksum for the string: the sum of each byte
+
+```ruby
+"Hello, World!".sum                 #=> 1116
+```
+
+### chr
+
+Returns the **first** character
+
+```ruby
+"Hello, World!".chr                 #=> "H"
+```
+
+## Methods for Comparing
+
+### ==
+
+Returns `true` if the strings are equal
+
+```ruby
+"Hello, World!" == "Hello, World!"  #=> true
+```
+
+## Methods for Assigning
+
+⚠️ These methods add, replace, or reorder elements in `self`
+
+### insert
+
+Returns `self` with a given string inserted at a given offset
+
+```ruby
+"Hello, World!".insert(5, " Ruby")  #=> "Hello Ruby, World!"
+```
+
+### `<<`
+
+Returns `self` concatenated with a given string or integer
+
+```ruby
+"Hello, World!" << " How are you?"  #=> "Hello, World! How are you?"
+```
+
+### concat
+
+Returns the concatenation of `self` with given other strings.
+
+```ruby
+"Hello".concat(" World")            #=> "Hello World"
+```
+
+### prepend
+
+Returns the concatenation of a given other string with `self`.
+
+```ruby
+"World".prepend("Hello ")           #=> "Hello World"
+```
+
+## Methods for Deleting
+
+### clear
+
+Removes all content
+
+```ruby
+"Hello, World!".clear               #=> ""
+```
+
+### slice
+
+Removes a substring determined by a given index, start/length, range, regexp, or substring; returns `self`.
+
+```ruby
+"Hello, World!"[2]                  #=> "l" (index)
+"Hello, World!"[2, 3]               #=> "llo" (start, length)
+"Hello, World!"[2..3]               #=> "lo" (range)
+"Hello, World!"[/l./]               #=> "ll" (regexp)
+"Hello, World!"["l"]                #=> "l" (substring)
+```
+
+### squeeze
+
+Removes contiguous **duplicate** characters; returns `self`
+
+```ruby
+"Hello, World!".squeeze            #=> "Helo, World!"
+```
+
+### delete
+
+Removes characters as determined by the intersection of substring arguments
+
+```ruby
+"Hello, World!".delete("l")        #=> "Heo, Word!"
+```
+
+### delete_prefix
+
+Returns a copy of `self` with a given prefix removed
+
+```ruby
+"Hello, World!".delete_prefix("Hello") #=> ", World!"
+```
+
+### delete_suffix
+
+Returns a copy of `self` with a given suffix removed
+
+```ruby
+"Hello, World!".delete_suffix("World") #=> "Hello, "
+```
+
+### lstrip
+
+Removes leading whitespace; returns `self`
+
+```ruby
+"  Hello, World!".lstrip           #=> "Hello, World!"
+```
+
+### rstrip
+
+Removes trailing whitespace; returns `self`
+
+```ruby
+"Hello, World!  ".rstrip           #=> "Hello, World!"
+```
+
+### strip
+
+Removes leading and trailing whitespace
+
+```ruby
+"  Hello, World!  ".strip          #=> "Hello, World!"
+```
+
+### chomp
+
+Removes trailing record separator
+
+```ruby
+"Hello, World!\n".chomp            #=> "Hello, World!"
+```
+
+### chop
+
+Removes trailing newline characters if found; otherwise removes the last character; returns `self` if any changes
+
+```ruby
+"Hello, World!\n".chop             #=> "Hello, World!"
+```
+
+### byteslice
+
+Returns a substring determined by a given index, start/length, or range
+
+```ruby
+"Hello, World!".byteslice(2)        #=> "l"
+```
+
+## Methods for Converting
+
+Each of these methods returns a new String based on `self`, often just a modified copy of `self`.
+
+### center
+
+Returns a copy of `self` centered between pad substring.
+
+```ruby
+"Hello".center(11)                  #=> "   Hello   "
+"Hello".center(11, '-')             #=> "---Hello---"
+```
+
+### ljust
+
+Returns a copy of `self` of a given length, right-padded with a given other string.
+
+```ruby
+"Hello".ljust(11)                   #=> "Hello      "
+"Hello".ljust(11, '-')              #=> "Hello------"
+```
+
+### rjust
+
+Returns a copy of `self` of a given length, left-padded with a given other string.
+
+```ruby
+"Hello".rjust(11)                   #=> "      Hello"
+"Hello".rjust(11, '-')              #=> "------Hello"
+```
+
+### dump
+
+Returns a copy of `self` with all non-printing characters replaced by xHH notation and all special characters escaped.
+
+```ruby
+"Hello, World!".dump                #=> "\"Hello, World!\""
+```
+
+### undump
+
+Returns a copy of `self` with all `\xNN` notation replace by `\uNNNN` notation and all escaped characters unescaped.
+
+```ruby
+"\"Hello, World!\"".undump          #=> "Hello, World!"
+```
+
+### sub
+
+Returns a copy of `self` with the **first** substring matching a given pattern replaced with a given replacement string;.
+
+```ruby
+"Hello, World!".sub(/l/, "r")       #=> "Herlo, World!"
+```
+
+### gsub
+
+Returns a copy of `self` with **each** substring that matches a given pattern replaced with a given replacement string.
+
+```ruby
+"Hello, World!".gsub(/l/, "r")      #=> "Herro, Worrd!"
+```
+
+### succ
+
+Returns the string that is the successor to `self`.
+
+```ruby
+"Hello, World!".succ                #=> "Hello, Worle!"
+```
+
+### reverse
+
+Returns a copy of `self` with its characters in reverse order
+
+```ruby
+"Hello, World!".reverse             #=> "!dlroW ,olleH"
+```
+
+### tr
+
+Returns a copy of `self` with specified characters replaced with specified replacement characters
+
+```ruby
+"Hello, World!".tr("l", "r")        #=> "Herro, Worrd!"
+```
+
+### replace
+
+Returns `self` with its entire content replaced by a given string
+
+```ruby
+"Hello, World!".replace("Goodbye!") #=> "Goodbye!"
+```
+
+### tr
+
+Replaces specified characters in `self` with specified replacement characters
+
+```ruby
+"Hello, World!".tr("l", "r")        #=> "Herro, Worrd!"
+```
+
+### tr_s
+
+Replaces specified characters in `self` with specified replacement characters, removing duplicates from the substrings that were modified
+
+```ruby
+"Hello, World!".tr_s("l", "r")      #=> "Hero, Word!"
+```
+
+### capitalize
+
+Upcases the initial character and downcases all others
+
+```ruby
+"hello, world!".capitalize         #=> "Hello, world!"
+```
+
+### downcase
+
+Downcases all characters
+
+```ruby
+"Hello, World!".downcase           #=> "hello, world!"
+```
+
+### upcase
+
+Upcases all characters
+
+```ruby
+"Hello, World!".upcase             #=> "HELLO, WORLD!"
+```
+
+### swapcase
+
+Upcases each downcase character and downcases each upcase character
+
+```ruby
+"Hello, World!".swapcase           #=> "hELLO, wORLD!"
+```
+
+### scrub
+
+Replaces each invalid byte with a given character
+
+```ruby
+"Hello, \xC2 World!".scrub("*")     #=> "Hello, * World!"
+```
+
+## Methods for Iterating
+
+### each_char
+
+Calls the given block with each successive character in `self`
+
+```ruby
+"Hello".each_char { |c| print c, ' ' }  #=> H e l l o
+```
+
+### each_line
+
+Calls the given block with each successive line in `self`, as determined by a given record separator
+
+```ruby
+"Hello\nWorld".each_line { |line| print line }  #=> Hello
+                                                  #=> World
+```
+
+### upto
+
+Calls the given block with each string value returned by successive calls to [`succ`](###succ)
+
+```ruby
+"aa".upto("ac") { |s| print s, ' ' }  #=> aa ab ac
+```
+
+## Methods for Converting
+
+### to_s
+
+```ruby
+"Hello, World!".to_s               #=> "Hello, World!"
+```
+
+### characters
+
+Returns an array of the characters in `self`
+
+```ruby
+"Hello".chars              #=> ["H", "e", "l", "l", "o"]
+```
+
+### bytes
+
+Returns an array of the bytes in `self`
+
+```ruby
+"Hello".bytes              #=> [72, 101, 108, 108, 111]
+```
+
+### lines
+
+Returns an array of the lines in `self`, as determined by a given record separator
+
+```ruby
+"Hello\nWorld".lines       #=> ["Hello\n", "World"]
+```
+
+### partition
+
+Returns a **3-element** array determined by the **first** substring that matches a given substring or regexp
+
+```ruby
+"Hello, World!".partition("l")  #=> ["He", "l", "lo, World!"]
+```
+
+### rpartition
+
+Returns a **3-element** array determined by the **last** substring that matches a given substring or regexp
+
+```ruby
+"Hello, World!".rpartition("l") #=> ["Hello, Wor", "l", "d!"]
+```
+
+### split
+
+Returns an array of substrings determined by a given delimiter regexp or string
+
+```ruby
+"Hello, World!".split(", ")  #=> ["Hello", "World!"]
+```
+
+### scan
+
+Returns an array of substrings matching a given regexp or string, or, if a block given, passes each matching substring to the block
+
+```ruby
+"Hello, World!".scan(/l./)  #=> ["ll", "ld"]
+```
+
+### hex
+
+Returns the integer value of the leading characters, interpreted as hexadecimal digits
+
+```ruby
+"FF".hex                    #=> 255
+```
+
+### to_i
+
+Returns the integer value of leading characters, interpreted as an integer
+
+```ruby
+"123".to_i                  #=> 123
+```
+
+### to_f
+
+Returns the floating-point value of leading characters, interpreted as a floating-point number
+
+```ruby
+"123.45".to_f               #=> 123.45
+```
+
+### inspect
+
+Returns copy of `self`, enclosed in double-quotes, with special characters escaped
+
+```ruby
+"Hello, World!".inspect     #=> "\"Hello, World!\""
+```
+
+### to_sym
+
+Returns the symbol corresponding to `self`
+
+```ruby
+"Hello".to_sym              #=> :Hello
+```
+
+## Other Methods
+
+### freeze
+
+Freezes `self`, if not already frozen; returns `self`
+
+```ruby
+str = "Hello, World!"
+str.freeze
+str.frozen?                         #=> true
+str << " How are you?"  #=> RuntimeError: can't modify frozen String
+```

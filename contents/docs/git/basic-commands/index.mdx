@@ -1,0 +1,122 @@
+---
+title: Basic Commands
+description: This section provides an overview of Git basic commands.
+---
+
+### Starting
+
+From existing repository (on GitHub for instance)
+
+```bash
+git clone <github_ssh_clone_url>
+```
+
+from scratch
+
+```bash
+mkdir new_project
+cd new_project
+git init
+```
+
+### Status
+
+git can tell you if your folder has some modified files (dirty)
+
+```bash
+git status
+```
+
+### Add & Remove
+
+```bash
+git add <file_1_which_has_been_modified>
+#or
+git add .
+
+git rm <file_1_which_has_been_removed>
+```
+
+### Commit
+
+A `commit` (a snapshot of the folder) is a 3-steps job.
+
+```bash
+# You can review your staging area
+git status
+
+# Take a snapshot of what is in the staging area.
+git commit --message "A meaningful message about this change"
+```
+
+### Diff
+
+If `git status` tells you something changed, you can inspect exactly what changed:
+
+```bash
+git diff
+git diff <a_specific_file_or_folder>
+```
+
+### Log
+
+Show commit history with:
+
+```bash
+git log
+
+# More fancy command in your ~/.gitconfig
+git lg
+```
+
+### Branch
+
+Create a new branch
+
+```bash
+git checkout -b <branch_name>
+```
+
+Delete a branch
+
+```bash
+git branch -d <branch_name>
+```
+
+Push a branch to the remote
+
+```bash
+git push origin <branch_name>
+```
+
+### Merge
+
+Merge a branch into the current branch
+
+```bash
+git merge <branch_name>
+```
+
+
+## Remote
+
+### Fork and clone
+
+Fork the repository on GitHub, then clone it locally.
+
+```bash
+git clone git@github.com:$GITHUB_USERNAME/git-101-boilerplate.git
+git status # it's already tracked by git
+```
+
+### Pushing the changes
+
+Once you’ve committed your work, push it to GitHub.
+
+```bash
+# Generic command
+git push <remote> <branch>
+
+# What we'll use
+git push origin master
+```
