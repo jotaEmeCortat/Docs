@@ -1,1010 +1,479 @@
 ---
 title: Integer
-description: Programming Basics in Ruby
+description: An Integer object represents an integer value.
 ---
 
-# class Integer
+📖 <a href="http://www.ruby-doc.org/core/Integer.html" target="_blank">Documentation</a>
 
-An Integer object represents an integer value.
+## Methods for Creating
 
-You can create an Integer object explicitly with:
+```ruby
+Integer.new(1)                     # => 1
+int = 2                            # => 2
+```
 
-- An [integer literal](https://ruby-doc.org/3.3.6/syntax/literals_rdoc.html#label-Integer+Literals).
+## Methods for Querying
 
-You can convert certain objects to Integers with:
+### allbits?
 
-- Method [`Integer`](https://ruby-doc.org/3.3.6/Kernel.html#method-i-Integer).
+Returns whether **all** bits in `self` are set.
 
-An attempt to add a singleton method to an instance of this class causes an exception to be raised.
+```ruby
+0b1010101.allbits?(0b1010100)      # => true
+0b1010100.allbits?(0b1010101)      # => false
+```
 
-## What’s Here
+### anybits?
 
-First, what’s elsewhere. Class Integer:
+Returns whether **any** bits in `self` are set
 
-- Inherits from [class Numeric](https://ruby-doc.org/3.3.6/Numeric.html#class-Numeric-label-What-27s+Here).
+```ruby
+0b10000010.anybits?(0b11111111)    # => true
+0b00000000.anybits?(0b11111111)    # => false
+```
 
-Here, class Integer provides methods for:
+### between?
 
-- [Querying](https://ruby-doc.org/3.3.6/Integer.html#class-Integer-label-Querying)
+Returns whether `self` is between the given values
 
-- [Comparing](https://ruby-doc.org/3.3.6/Integer.html#class-Integer-label-Comparing)
+```ruby
+2.between?(1, 3)                   # => true
+2.between?(3, 5)                   # => false
+```
 
-- [Converting](https://ruby-doc.org/3.3.6/Integer.html#class-Integer-label-Converting)
+### eql?
 
-- [Other](https://ruby-doc.org/3.3.6/Integer.html#class-Integer-label-Other)
+Returns whether `self` is equal to the given value
 
-### Querying
+```ruby
+1.eql?(1)                          # => true
+1.eql?(1.0)                        # => false
+```
 
-- [`allbits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-allbits-3F): Returns whether all bits in `self` are set.
+### equal
 
-- [`anybits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-anybits-3F): Returns whether any bits in `self` are set.
+Returns whether `self` is equal to the given value
 
-- [`nobits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-nobits-3F): Returns whether no bits in `self` are set.
+```ruby
+1 == 1                             # => true
+1 == 1.0                           # => true
+```
 
-### Comparing
+### even?
 
-- #<: Returns whether `self` is less than the given value.
+Returns whether `self` is an even number
 
-- #<=: Returns whether `self` is less than or equal to the given value.
+```ruby
+2.even?                            # => true
+3.even?                            # => false
+```
 
-- #<=>: Returns a number indicating whether `self` is less than, equal to, or greater than the given value.
+### greater
 
-- [`==`](https://ruby-doc.org/3.3.6/Integer.html#method-i-3D-3D) (aliased as [`===`](https://ruby-doc.org/3.3.6/Integer.html#method-i-3D-3D-3D)): Returns whether `self` is equal to the given
+Returns whether `self` is greater than the given value
 
-  value.
+```ruby
+2 > 1                              # => true
+1 > 2                              # => false
+```
 
-- #>: Returns whether `self` is greater than the given value.
+### greater or equal
 
-- #>=: Returns whether `self` is greater than or equal to the given value.
+Returns whether `self` is greater than or equal to the given value
 
-### Converting
+```ruby
+2 >= 1                             # => true
+1 >= 2                             # => false
+```
 
-- [`::sqrt`](https://ruby-doc.org/3.3.6/Integer.html#method-c-sqrt): Returns the integer square root of the given value.
+### integer?
 
-- [`::try_convert`](https://ruby-doc.org/3.3.6/Integer.html#method-c-try_convert): Returns the given value converted to an Integer.
+Returns whether `self` is an Integer
 
-- [`%`](https://ruby-doc.org/3.3.6/Integer.html#method-i-25) (aliased as [`modulo`](https://ruby-doc.org/3.3.6/Integer.html#method-i-modulo)): Returns `self` modulo the given value.
+```ruby
+1.integer?                         # => true
+1.0.integer?                       # => false
+```
 
-- #&: Returns the bitwise AND of `self` and the given value.
+### less
 
-- [`*`](https://ruby-doc.org/3.3.6/Integer.html#method-i-2A): Returns the product of `self` and the given value.
+Returns whether `self` is less than the given value
 
-- [`*`](https://ruby-doc.org/3.3.6/Integer.html#method-i-2A)\*: Returns the value of `self` raised to the power of the given value.
+```ruby
+1 < 2                              # => true
+2 < 1                              # => false
+```
 
-- [`+`](https://ruby-doc.org/3.3.6/Integer.html#method-i-2B): Returns the sum of `self` and the given value.
+### less or equal
 
-- [`-`](https://ruby-doc.org/3.3.6/Integer.html#method-i-2D): Returns the difference of `self` and the given value.
+Returns whether `self` is less than or equal to the given value
 
-- #/: Returns the quotient of `self` and the given value.
+```ruby
+1 <= 2                             # => true
+2 <= 1                             # => false
+```
 
-- [`<<`](https://ruby-doc.org/3.3.6/Integer.html#method-i-3C-3C): Returns the value of `self` after a leftward bit-shift.
+### negative?
 
-- [`>>`](https://ruby-doc.org/3.3.6/Integer.html#method-i-3E-3E): Returns the value of `self` after a rightward bit-shift.
+Returns whether `self` is a **negative** number
 
-- [`[]`](https://ruby-doc.org/3.3.6/Integer.html#method-i-5B-5D): Returns a slice of bits from `self`.
+```ruby
+-1.negative?                       # => true
+1.negative?                        # => false
+```
 
-- #^: Returns the bitwise EXCLUSIVE OR of `self` and the given value.
+### nobits?
 
-- [`ceil`](https://ruby-doc.org/3.3.6/Integer.html#method-i-ceil): Returns the smallest number greater than or equal to `self`.
+Returns whether **no** bits in `self` are set
 
-- [`chr`](https://ruby-doc.org/3.3.6/Integer.html#method-i-chr): Returns a 1-character string containing the character represented by the value of `self`.
+```ruby
+0b11110000.nobits?(0b00001111)     # => true
+0b00000001.nobits?(0b11111111)     # => false
+```
 
-- [`digits`](https://ruby-doc.org/3.3.6/Integer.html#method-i-digits): Returns an array of integers representing the base-radix digits of `self`.
+### odd?
 
-- [`div`](https://ruby-doc.org/3.3.6/Integer.html#method-i-div): Returns the integer result of dividing `self` by the given value.
+Returns whether `self` is an odd number
 
-- [`divmod`](https://ruby-doc.org/3.3.6/Integer.html#method-i-divmod): Returns a 2-element array containing the quotient and remainder results of dividing `self` by the given value.
+```ruby
+2.odd?                             # => false
+3.odd?                             # => true
+```
 
-- [`fdiv`](https://ruby-doc.org/3.3.6/Integer.html#method-i-fdiv): Returns the [`Float`](https://ruby-doc.org/3.3.6/Float.html) result of dividing `self` by the given value.
+### positive?
 
-- [`floor`](https://ruby-doc.org/3.3.6/Integer.html#method-i-floor): Returns the greatest number smaller than or equal to `self`.
+Returns whether `self` is a **positive** number
 
-- [`pow`](https://ruby-doc.org/3.3.6/Integer.html#method-i-pow): Returns the modular exponentiation of `self`.
+```ruby
+-1.positive?                       # => false
+1.positive?                        # => true
+```
 
-- [`pred`](https://ruby-doc.org/3.3.6/Integer.html#method-i-pred): Returns the integer predecessor of `self`.
+### zero?
 
-- [`remainder`](https://ruby-doc.org/3.3.6/Integer.html#method-i-remainder): Returns the remainder after dividing `self` by the given value.
+Returns whether `self` is zero
 
-- [`round`](https://ruby-doc.org/3.3.6/Integer.html#method-i-round): Returns `self` rounded to the nearest value with the given precision.
+```ruby
+0.zero?                            # => true
+1.zero?                            # => false
+```
 
-- [`succ`](https://ruby-doc.org/3.3.6/Integer.html#method-i-succ) (aliased as [`next`](https://ruby-doc.org/3.3.6/Integer.html#method-i-next)): Returns the integer successor of `self`.
+## Methods for Fetching
 
-- [`to_f`](https://ruby-doc.org/3.3.6/Integer.html#method-i-to_f): Returns `self` converted to a [`Float`](https://ruby-doc.org/3.3.6/Float.html).
+### [ ]
 
-- [`to_s`](https://ruby-doc.org/3.3.6/Integer.html#method-i-to_s) (aliased as [`inspect`](https://ruby-doc.org/3.3.6/Integer.html#method-i-inspect)): Returns a string containing the place-value representation of `self` in the given radix.
+Returns a slice of bits from `self`
 
-- [`truncate`](https://ruby-doc.org/3.3.6/Integer.html#method-i-truncate): Returns `self` truncated to the given precision.
+```ruby
+0b1010101[0]                       # => 1
+0b1010101[1]                       # => 0
+```
 
-- #|: Returns the bitwise OR of `self` and the given value.
+## Methods for Iterating
 
-### Other
+### downto
 
-- [`downto`](https://ruby-doc.org/3.3.6/Integer.html#method-i-downto): Calls the given block with each integer value from `self` down to the given value.
+Iterates over the given block, passing decreasing values from `self` down to the given value
 
-- [`times`](https://ruby-doc.org/3.3.6/Integer.html#method-i-times): Calls the given block `self` times with each integer in `(0..self-1)`.
-
-- [`upto`](https://ruby-doc.org/3.3.6/Integer.html#method-i-upto): Calls the given block with each integer value from `self` up to the given value.
-
-### Constants
-
-GMP_VERSION
-
-The version of loaded GMP.
-
-### Public Class Methods
-
-sqrt(numeric) → integer
-
-Returns the integer square root of the non-negative integer `n`, which is the largest non-negative integer less than or equal to the square root of `numeric`.
-
-Integer.sqrt(0) # => 0
-Integer.sqrt(1) # => 1
-Integer.sqrt(24) # => 4
-Integer.sqrt(25) # => 5
-Integer.sqrt(10**400) # => 10**200
-
-If `numeric` is not an Integer, it is converted to an Integer:
-
-Integer.sqrt(Complex(4, 0)) # => 2
-Integer.sqrt(Rational(4, 1)) # => 2
-Integer.sqrt(4.0) # => 2
-Integer.sqrt(3.14159) # => 1
-
-This method is equivalent to `Math.sqrt(numeric).floor`, except that the result of the latter code may differ from the true value due to the limited precision of floating point arithmetic.
-
-Integer.sqrt(10**46) # => 100000000000000000000000
-Math.sqrt(10**46).floor # => 99999999999999991611392
-
-Raises an exception if `numeric` is negative.
-
-try_convert(object) → object, integer, or nil
-
-If `object` is an Integer object, returns `object`.
-
-Integer.try_convert(1) # => 1
-
-Otherwise if `object` responds to `:to_int`, calls `object.to_int` and returns the result.
-
-Integer.try_convert(1.25) # => 1
-
-Returns `nil` if `object` does not respond to `:to_int`
-
-Integer.try_convert([]) # => nil
-
-Raises an exception unless `object.to_int` returns an Integer object.
-
-### Public Instance Methods
-
-self % other → real_number
-
-Returns `self` modulo `other` as a real number.
-
-For integer `n` and real number `r`, these expressions are equivalent:
-
-n % r
-n-r\*(n/r).floor
-n.divmod(r)[1]
-
-See [`Numeric#divmod`](https://ruby-doc.org/3.3.6/Numeric.html#method-i-divmod).
-
-Examples:
-
-10 % 2 # => 0
-10 % 3 # => 1
-10 % 4 # => 2
-
-10 % -2 # => 0
-10 % -3 # => -2
-10 % -4 # => -2
-
-10 % 3.0 # => 1.0
-10 % Rational(3, 1) # => (1/1)
-
-Also aliased as: [modulo](https://ruby-doc.org/3.3.6/Integer.html#method-i-modulo)
-
-self & other → integer
-
-Bitwise AND; each bit in the result is 1 if both corresponding bits in `self` and `other` are 1, 0 otherwise:
-
-"%04b" % (0b0101 & 0b0110) # => "0100"
-
-Raises an exception if `other` is not an Integer.
-
-Related: Integer#| (bitwise OR), Integer#^ (bitwise EXCLUSIVE OR).
-
-self \* numeric → numeric_result
-
-Performs multiplication:
-
-4 _ 2 # => 8
-4 _ -2 # => -8
--4 _ 2 # => -8
-4 _ 2.0 # => 8.0
-4 _ Rational(1, 3) # => (4/3)
-4 _ Complex(2, 0) # => (8+0i)
-
-self \*\* numeric → numeric_result
-
-Raises `self` to the power of `numeric`:
-
-2 ** 3 # => 8
-2 ** -3 # => (1/8)
--2 ** 3 # => -8
--2 ** -3 # => (-1/8)
-2 ** 3.3 # => 9.849155306759329
-2 ** Rational(3, 1) # => (8/1)
-2 \*\* Complex(3, 0) # => (8+0i)
-
-self + numeric → numeric_result
-
-Performs addition:
-
-2 + 2 # => 4
--2 + 2 # => 0
--2 + -2 # => -4
-2 + 2.0 # => 4.0
-2 + Rational(2, 1) # => (4/1)
-2 + Complex(2, 0) # => (4+0i)
-
-self - numeric → numeric_result
-
-Performs subtraction:
-
-4 - 2 # => 2
--4 - 2 # => -6
--4 - -2 # => -2
-4 - 2.0 # => 2.0
-4 - Rational(2, 1) # => (2/1)
-4 - Complex(2, 0) # => (2+0i)
-
--int → integer
-
-Returns `self`, negated.
-
-self / numeric → numeric_result
-
-Performs division; for integer `numeric`, truncates the result to an integer:
-
-4 / 3 # => 1
-4 / -3 # => -2
--4 / 3 # => -2
--4 / -3 # => 1
-
-For other +numeric+, returns non-integer result:
-
-4 / 3.0 # => 1.3333333333333333
-4 / Rational(3, 1) # => (4/3)
-4 / Complex(3, 0) # => ((4/3)+0i)
-
-self < other → true or false
-
-Returns `true` if the value of `self` is less than that of `other`:
-
-1 < 0 # => false
-1 < 1 # => false
-1 < 2 # => true
-1 < 0.5 # => false
-1 < Rational(1, 2) # => false
-
-Raises an exception if the comparison cannot be made.
-
-self << count → integer
-
-Returns `self` with bits shifted `count` positions to the left, or to the right if `count` is negative:
-
-n = 0b11110000
-"%08b" % (n << 1) # => "111100000"
-"%08b" % (n << 3) # => "11110000000"
-"%08b" % (n << -1) # => "01111000"
-"%08b" % (n << -3) # => "00011110"
-
-Related: [`Integer#>>`](https://ruby-doc.org/3.3.6/Integer.html#method-i-3E-3E).
-
-self <= real → true or false
-
-Returns `true` if the value of `self` is less than or equal to that of `other`:
-
-1 <= 0 # => false
-1 <= 1 # => true
-1 <= 2 # => true
-1 <= 0.5 # => false
-1 <= Rational(1, 2) # => false
-
-Raises an exception if the comparison cannot be made.
-
-self <=> other → -1, 0, +1, or nil
-
-Returns:
-
-- -1, if `self` is less than `other`.
-
-- 0, if `self` is equal to `other`.
-
-- 1, if `self` is greater then `other`.
-
-- `nil`, if `self` and `other` are incomparable.
-
-Examples:
-
-1 <=> 2 # => -1
-1 <=> 1 # => 0
-1 <=> 0 # => 1
-1 <=> 'foo' # => nil
-
-1 <=> 1.0 # => 0
-1 <=> Rational(1, 1) # => 0
-1 <=> Complex(1, 0) # => 0
-
-This method is the basis for comparisons in module [`Comparable`](https://ruby-doc.org/3.3.6/Comparable.html).
-
-self == other → true or false
-
-Returns `true` if `self` is numerically equal to `other`; `false` otherwise.
-
-1 == 2 #=> false
-1 == 1.0 #=> true
-
-Related: [`Integer#eql?`](https://ruby-doc.org/3.3.6/Numeric.html#method-i-eql-3F) (requires `other` to be an Integer).
-
-Alias for: [===](https://ruby-doc.org/3.3.6/Integer.html#method-i-3D-3D-3D)
-
-=== == other -> true or false
-
-Returns `true` if `self` is numerically equal to `other`; `false` otherwise.
-
-1 == 2 #=> false
-1 == 1.0 #=> true
-
-Related: [`Integer#eql?`](https://ruby-doc.org/3.3.6/Numeric.html#method-i-eql-3F) (requires `other` to be an Integer).
-
-Also aliased as: [==](https://ruby-doc.org/3.3.6/Integer.html#method-i-3D-3D)
-
-self > other → true or false
-
-Returns `true` if the value of `self` is greater than that of `other`:
-
-1 > 0 # => true
-1 > 1 # => false
-1 > 2 # => false
-1 > 0.5 # => true
-1 > Rational(1, 2) # => true
-
-Raises an exception if the comparison cannot be made.
-
-self >= real → true or false
-
-Returns `true` if the value of `self` is greater than or equal to that of `other`:
-
-1 >= 0 # => true
-1 >= 1 # => true
-1 >= 2 # => false
-1 >= 0.5 # => true
-1 >= Rational(1, 2) # => true
-
-Raises an exception if the comparison cannot be made.
-
-self >> count → integer
-
-Returns `self` with bits shifted `count` positions to the right, or to the left if `count` is negative:
-
-n = 0b11110000
-"%08b" % (n >> 1) # => "01111000"
-"%08b" % (n >> 3) # => "00011110"
-"%08b" % (n >> -1) # => "111100000"
-"%08b" % (n >> -3) # => "11110000000"
-
-Related: [`Integer#<<`](https://ruby-doc.org/3.3.6/Integer.html#method-i-3C-3C).
-
-self[offset] → 0 or 1
-
-self[offset, size] → integer
-
-self[range] → integer
-
-Returns a slice of bits from `self`.
-
-With argument `offset`, returns the bit at the given offset, where offset 0 refers to the least significant bit:
-
-n = 0b10 # => 2
-n[0] # => 0
-n[1] # => 1
-n[2] # => 0
-n[3] # => 0
-
-In principle, `n[i]` is equivalent to `(n >> i) & 1`. Thus, negative index always returns zero:
-
-255[-1] # => 0
-
-With arguments `offset` and `size`, returns `size` bits from `self`, beginning at `offset` and including bits of greater significance:
-
-n = 0b111000 # => 56
-"%010b" % n[0, 10] # => "0000111000"
-"%010b" % n[4, 10] # => "0000000011"
-
-With argument `range`, returns `range.size` bits from `self`, beginning at `range.begin` and including bits of greater significance:
-
-n = 0b111000 # => 56
-"%010b" % n[0..9] # => "0000111000"
-"%010b" % n[4..9] # => "0000000011"
-
-Raises an exception if the slice cannot be constructed.
-
-self ^ other → integer
-
-Bitwise EXCLUSIVE OR; each bit in the result is 1 if the corresponding bits in `self` and `other` are different, 0 otherwise:
-
-"%04b" % (0b0101 ^ 0b0110) # => "0011"
-
-Raises an exception if `other` is not an Integer.
-
-Related: Integer#& (bitwise AND), Integer#| (bitwise OR).
-
-abs → integer
-
-Returns the absolute value of `self`.
-
-(-12345).abs # => 12345
--12345.abs # => 12345
-12345.abs # => 12345
-
-Also aliased as: [magnitude](https://ruby-doc.org/3.3.6/Integer.html#method-i-magnitude)
-
-allbits?(mask) → true or false
-
-Returns `true` if all bits that are set (=1) in `mask` are also set in `self`; returns `false` otherwise.
-
-Example values:
-
-0b1010101 self
-0b1010100 mask
-0b1010100 self & mask
-true self.allbits?(mask)
-
-0b1010100 self
-0b1010101 mask
-0b1010100 self & mask
-false self.allbits?(mask)
-
-Related: [`Integer#anybits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-anybits-3F), [`Integer#nobits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-nobits-3F).
-
-anybits?(mask) → true or false
-
-Returns `true` if any bit that is set (=1) in `mask` is also set in `self`; returns `false` otherwise.
-
-Example values:
-
-0b10000010 self
-0b11111111 mask
-0b10000010 self & mask
-true self.anybits?(mask)
-
-0b00000000 self
-0b11111111 mask
-0b00000000 self & mask
-false self.anybits?(mask)
-
-Related: [`Integer#allbits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-allbits-3F), [`Integer#nobits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-nobits-3F).
-
-bit_length → integer
-
-Returns the number of bits of the value of `self`, which is the bit position of the highest-order bit that is different from the sign bit (where the least significant bit has bit position 1). If there is no such bit (zero or minus one), returns zero.
-
-This method returns `ceil(log2(self < 0 ? -self : self + 1))`>.
-
-(-2**1000-1).bit_length # => 1001
-(-2**1000).bit_length # => 1000
-(-2**1000+1).bit_length # => 1000
-(-2**12-1).bit_length # => 13
-(-2**12).bit_length # => 12
-(-2**12+1).bit_length # => 12
--0x101.bit_length # => 9
--0x100.bit_length # => 8
--0xff.bit_length # => 8
--2.bit_length # => 1
--1.bit_length # => 0
-0.bit_length # => 0
-1.bit_length # => 1
-0xff.bit_length # => 8
-0x100.bit_length # => 9
-(2**12-1).bit_length # => 12
-(2**12).bit_length # => 13
-(2**12+1).bit_length # => 13
-(2**1000-1).bit_length # => 1000
-(2**1000).bit_length # => 1001
-(2**1000+1).bit_length # => 1001
-
-For Integer _n_, this method can be used to detect overflow in [`Array#pack`](https://ruby-doc.org/3.3.6/Array.html#method-i-pack):
-
-if n.bit_length < 32
-[n].pack('l') # No overflow.
-else
-raise 'Overflow'
-end
-
-ceil(ndigits = 0) → integer
-
-Returns the smallest number greater than or equal to `self` with a precision of `ndigits` decimal digits.
-
-When the precision is negative, the returned value is an integer with at least `ndigits.abs` trailing zeros:
-
-555.ceil(-1) # => 560
-555.ceil(-2) # => 600
--555.ceil(-2) # => -500
-555.ceil(-3) # => 1000
-
-Returns `self` when `ndigits` is zero or positive.
-
-555.ceil # => 555
-555.ceil(50) # => 555
-
-Related: [`Integer#floor`](https://ruby-doc.org/3.3.6/Integer.html#method-i-floor).
-
-ceildiv(numeric) → integer
-
-Returns the result of division `self` by `numeric`. rounded up to the nearest integer.
-
-3.ceildiv(3) # => 1
-4.ceildiv(3) # => 2
-
-4.ceildiv(-3) # => -1
--4.ceildiv(3) # => -1
--4.ceildiv(-3) # => 2
-
-3.ceildiv(1.2) # => 3
-
-chr → string
-
-chr(encoding) → string
-
-Returns a 1-character string containing the character represented by the value of `self`, according to the given `encoding`.
-
-65.chr # => "A"
-0.chr # => "\x00"
-255.chr # => "\xFF"
-string = 255.chr(Encoding::UTF_8)
-string.encoding # => Encoding::UTF_8
-
-Raises an exception if `self` is negative.
-
-Related: [`Integer#ord`](https://ruby-doc.org/3.3.6/Integer.html#method-i-ord).
-
-coerce(numeric) → array
-
-Returns an array with both a `numeric` and a `int` represented as [`Integer`](https://ruby-doc.org/3.3.6/Integer.html) objects or [`Float`](https://ruby-doc.org/3.3.6/Float.html) objects.
-
-This is achieved by converting `numeric` to an [`Integer`](https://ruby-doc.org/3.3.6/Integer.html) or a [`Float`](https://ruby-doc.org/3.3.6/Float.html).
-
-A [`TypeError`](https://ruby-doc.org/3.3.6/TypeError.html) is raised if the `numeric` is not an [`Integer`](https://ruby-doc.org/3.3.6/Integer.html) or a [`Float`](https://ruby-doc.org/3.3.6/Float.html) type.
-
-(0x3FFFFFFFFFFFFFFF+1).coerce(42) #=> [42, 4611686018427387904]
-
-denominator → 1
-
-Returns `1`.
-
-digits(base = 10) → array_of_integers
-
-Returns an array of integers representing the `base`-radix digits of `self`; the first element of the array represents the least significant digit:
-
-12345.digits # => [5, 4, 3, 2, 1]
-12345.digits(7) # => [4, 6, 6, 0, 5]
-12345.digits(100) # => [45, 23, 1]
-
-Raises an exception if `self` is negative or `base` is less than 2.
-
-div(numeric) → integer
-
-Performs integer division; returns the integer result of dividing `self` by `numeric`:
-
-4.div(3) # => 1
-4.div(-3) # => -2
--4.div(3) # => -2
--4.div(-3) # => 1
-4.div(3.0) # => 1
-4.div(Rational(3, 1)) # => 1
-
-Raises an exception if +numeric+ does not have method +div+.
-
-divmod(other) → array
-
-Returns a 2-element array `[q, r]`, where
-
-q = (self/other).floor # Quotient
-r = self % other # Remainder
-
-Examples:
-
-11.divmod(4) # => [2, 3]
-11.divmod(-4) # => [-3, -1]
--11.divmod(4) # => [-3, 1]
--11.divmod(-4) # => [2, -3]
-
-12.divmod(4) # => [3, 0]
-12.divmod(-4) # => [-3, 0]
--12.divmod(4) # => [-3, 0]
--12.divmod(-4) # => [3, 0]
-
-13.divmod(4.0) # => [3, 1.0]
-13.divmod(Rational(4, 1)) # => [3, (1/1)]
-
-downto(limit) {|i| ... } → self
-
-downto(limit) → enumerator
-
-Calls the given block with each integer value from `self` down to `limit`; returns `self`:
-
+```ruby
 a = []
-10.downto(5) {|i| a << i } # => 10
-a # => [10, 9, 8, 7, 6, 5]
+5.downto(1) { |i| print i, " " }   # => 5 4 3 2 1
+4.downto(2) { |i| i << a }         # => [4, 3, 2]
+```
+
+### times
+
+Calls the given block `self`times with each integer in `(0..self-1)`
+
+```ruby
+5.times { |i| print i, " " }       # => 0 1 2 3 4
+```
+
+### upto
+
+Calls the given block with each integer value from `self` up to the given value
+
+```ruby
 a = []
-0.downto(-5) {|i| a << i } # => 0
-a # => [0, -1, -2, -3, -4, -5]
-4.downto(5) {|i| fail 'Cannot happen' } # => 4
+1.upto(5) { |i| print i, " " }     # => 1 2 3 4 5
+2.upto(4) { |i| i << a }           # => [2, 3, 4]
+```
 
-With no block given, returns an [`Enumerator`](https://ruby-doc.org/3.3.6/Enumerator.html).
+## Methods for Converting
 
-even? → true or false
+### *
 
-Returns `true` if `self` is an even number, `false` otherwise.
+Returns the product of `self` and the given value
 
-fdiv(numeric) → float
+```ruby
+4 * 2                              # => 8
+4 * -2                             # => -8
+4 * 2.0                            # => 8.0
+```
 
-Returns the [`Float`](https://ruby-doc.org/3.3.6/Float.html) result of dividing `self` by `numeric`:
+### **
 
-4.fdiv(2) # => 2.0
-4.fdiv(-2) # => -2.0
--4.fdiv(2) # => -2.0
-4.fdiv(2.0) # => 2.0
-4.fdiv(Rational(3, 4)) # => 5.333333333333333
+Returns the value of `self` raised to the power of the given value
 
-Raises an exception if `numeric` cannot be converted to a [`Float`](https://ruby-doc.org/3.3.6/Float.html).
+```ruby
+2 ** 3                             # => 8
+2 ** 3.3                           # => 9.849155306759329
+```
 
-floor(ndigits = 0) → integer
+### +
 
-Returns the largest number less than or equal to `self` with a precision of `ndigits` decimal digits.
+Returns the sum of `self` and the given value
 
-When `ndigits` is negative, the returned value has at least `ndigits.abs` trailing zeros:
+```ruby
+2 + 3                              # => 5
+2 + 2.0                            # => 4.0
+```
 
-555.floor(-1) # => 550
-555.floor(-2) # => 500
--555.floor(-2) # => -600
-555.floor(-3) # => 0
+### -
 
-Returns `self` when `ndigits` is zero or positive.
+Returns the difference of `self` and the given value
 
-555.floor # => 555
-555.floor(50) # => 555
+```ruby
+2 - 3                              # => -1
+4 - 2.0                            # => 2.0
+```
 
-Related: [`Integer#ceil`](https://ruby-doc.org/3.3.6/Integer.html#method-i-ceil).
+### /
 
-gcd(other_int) → integer
+Returns the quotient of `self` and the given value
 
-Returns the greatest common divisor of the two integers. The result is always positive. 0.gcd(x) and x.gcd(0) return x.abs.
+```ruby
+4 / 3                              # => 1
+4 / 2                              # => 2
+```
 
-36.gcd(60) #=> 12
-2.gcd(2) #=> 2
-3.gcd(-7) #=> 1
-((1<<31)-1).gcd((1<<61)-1) #=> 1
+### %
 
-gcdlcm(other_int) → array
+Returns `self` modulo the given value
 
-Returns an array with the greatest common divisor and the least common multiple of the two integers, [gcd, lcm].
+```ruby
+10 % 2                             # => 0
+10 % -2                            # => 0
+10 % 3.0                           # => 1.0
+```
 
-36.gcdlcm(60) #=> [12, 180]
-2.gcdlcm(2) #=> [2, 2]
-3.gcdlcm(-7) #=> [1, 21]
-((1<<31)-1).gcdlcm((1<<61)-1) #=> [1, 4951760154835678088235319297]
+### abs
 
-inspect(\*args)
+Returns the absolute value of `self`
 
-Returns a string containing the place-value representation of `self` in radix `base` (in 2..36).
+```ruby
+-12345.abs                         # => 12345
+12345.abs                          # => 12345
+```
 
-12345.to_s # => "12345"
-12345.to_s(2) # => "11000000111001"
-12345.to_s(8) # => "30071"
-12345.to_s(10) # => "12345"
-12345.to_s(16) # => "3039"
-12345.to_s(36) # => "9ix"
-78546939656932.to_s(36) # => "rubyrules"
+### ceil
 
-Raises an exception if `base` is out of range.
+Returns the smallest number **greater** than or equal to `self`
 
-Alias for: [to_s](https://ruby-doc.org/3.3.6/Integer.html#method-i-to_s)
+```ruby
+1.ceil                             # => 1
+4.2.ceil                           # => 5
+```
 
-integer? → true
+### ceildiv
 
-Since `self` is already an Integer, always returns `true`.
+Returns the integer result of dividing `self` by the given value
 
-lcm(other_int) → integer
+```ruby
+5.ceildiv(3)                       # => 2
+4.ceildiv(2)                       # => 2
+```
 
-Returns the least common multiple of the two integers. The result is always positive. 0.lcm(x) and x.lcm(0) return zero.
+### chr
 
-36.lcm(60) #=> 180
-2.lcm(2) #=> 2
-3.lcm(-7) #=> 21
-((1<<31)-1).lcm((1<<61)-1) #=> 4951760154835678088235319297
+Returns a 1-character string containing the character represented by the value of `self`
 
-magnitude()
+```ruby
+65.chr                             # => "A"
+0.chr                              # => "\x00"
+```
 
-Alias for: [abs](https://ruby-doc.org/3.3.6/Integer.html#method-i-abs)
+### denominator
 
-modulo(p1)
+Returns the denominator of `self`
 
-Returns `self` modulo `other` as a real number.
+```ruby
+1.denominator                      # => 1
+1.5.denominator                    # => 2
+```
 
-For integer `n` and real number `r`, these expressions are equivalent:
+### digits
 
-n % r
-n-r\*(n/r).floor
-n.divmod(r)[1]
+Returns an array of integers representing the base-radix digits of `self`
 
-See [`Numeric#divmod`](https://ruby-doc.org/3.3.6/Numeric.html#method-i-divmod).
+```ruby
+12345.digits                       # => [5, 4, 3, 2, 1]
+12345.digits(7)                    # => [3, 3, 3, 3, 1, 0]
+```
 
-Examples:
+### div
 
-10 % 2 # => 0
-10 % 3 # => 1
-10 % 4 # => 2
+Returns the integer result of dividing `self` by the given value
 
-10 % -2 # => 0
-10 % -3 # => -2
-10 % -4 # => -2
+```ruby
+5.div(3)                           # => 1
+-4.div(3)                          # => -2
+```
 
-10 % 3.0 # => 1.0
-10 % Rational(3, 1) # => (1/1)
+### divmod
 
-Alias for: [%](https://ruby-doc.org/3.3.6/Integer.html#method-i-25)
+Returns a 2-element array containing the quotient and remainder results of dividing `self` by the given value
 
-next()
+```ruby
+5.divmod(3)                        # => [1, 2]
+4.divmod(2)                        # => [2, 0]
+```
 
-Returns the successor integer of `self` (equivalent to `self + 1`):
+### fdiv
 
-1.succ #=> 2
--1.succ #=> 0
+Returns the floating-point result of dividing `self` by the given value
 
-Related: [`Integer#pred`](https://ruby-doc.org/3.3.6/Integer.html#method-i-pred) (predecessor value).
+```ruby
+5.fdiv(3)                          # => 1.6666666666666667
+4.fdiv(2)                          # => 2.0
+```
 
-Alias for: [succ](https://ruby-doc.org/3.3.6/Integer.html#method-i-succ)
+### floor
 
-nobits?(mask) → true or false
+Returns the greatest number **smaller** than or equal to `self`
 
-Returns `true` if no bit that is set (=1) in `mask` is also set in `self`; returns `false` otherwise.
+```ruby
+1.floor                            # => 1
+4.2.floor                          # => 4
+-2.7.floor                         # => -3
+```
 
-Example values:
+### gcd
 
-0b11110000 self
-0b00001111 mask
-0b00000000 self & mask
-true self.nobits?(mask)
+Returns the greatest **common** divisor of `self` and the given value
 
-0b00000001 self
-0b11111111 mask
-0b00000001 self & mask
-false self.nobits?(mask)
+```ruby
+4.gcd(2)                           # => 2
+3.gcd(-7)                          # => 1
+```
 
-Related: [`Integer#allbits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-allbits-3F), [`Integer#anybits?`](https://ruby-doc.org/3.3.6/Integer.html#method-i-anybits-3F).
+### gcdlcm
 
-numerator → self
+Returns a 2-element array containing the **greatest** common divisor and **least** common multiple of `self` and the given value
 
-Returns `self`.
+```ruby
+4.gcdlcm(2)                        # => [2, 4]
+3.gcdlcm(-7)                       # => [1, 21]
+```
 
-odd? → true or false
+### lcm
 
-Returns `true` if `self` is an odd number, `false` otherwise.
+Returns the **least** common multiple of `self` and the given value
 
-ord → self
+```ruby
+4.lcm(2)                           # => 4
+3.lcm(-7)                          # => 21
+```
 
-Returns `self`; intended for compatibility to character literals in Ruby 1.9.
+### pow
 
-pow(numeric) → numeric
+Returns the **modular** **exponentiation** of `self`
 
-pow(integer, integer) → integer
+```ruby
+2.pow(3, 5)                        # => 3
+```
 
-Returns (modular) exponentiation as:
+### pred
 
-a.pow(b) #=> same as a**b
-a.pow(b, m) #=> same as (a**b) % m, but avoids huge temporary values
+Returns the integer **predecessor** of `self`
 
-pred → next_integer
+```ruby
+1.pred                             # => 0
+2.pred                             # => 1
+```
 
-Returns the predecessor of `self` (equivalent to `self - 1`):
+### rationalize
 
-1.pred #=> 0
--1.pred #=> -2
+Returns the `Rational` representation of `self`
 
-Related: [`Integer#succ`](https://ruby-doc.org/3.3.6/Integer.html#method-i-succ) (successor value).
+```ruby
+1.rationalize                      # => (1/1)
+1.5.rationalize                    # => (3/2)
+```
 
-rationalize([eps]) → rational
+### remainder
 
-Returns the value as a rational. The optional argument `eps` is always ignored.
+Returns the remainder **after** **dividing** `self` by the given value
 
-remainder(other) → real_number
+```ruby
+5.remainder(3)                     # => 2
+4.remainder(2)                     # => 0
+```
 
-Returns the remainder after dividing `self` by `other`.
+### round
 
-Examples:
+Returns `self` rounded to the nearest value with the given precision
 
-11.remainder(4) # => 3
-11.remainder(-4) # => 3
--11.remainder(4) # => -3
--11.remainder(-4) # => -3
+```ruby
+4.2.round                          # => 4
+-4.2.round                         # => -4
+```
 
-12.remainder(4) # => 0
-12.remainder(-4) # => 0
--12.remainder(4) # => 0
--12.remainder(-4) # => 0
+### sqrt
 
-13.remainder(4.0) # => 1.0
-13.remainder(Rational(4, 1)) # => (1/1)
+Returns the integer square root of the given value.
 
-round(ndigits= 0, half: :up) → integer
+⚠️ If `numeric` is not an Integer, it is converted to an Integer
 
-Returns `self` rounded to the nearest value with a precision of `ndigits` decimal digits.
+```ruby
+Integer.sqrt(0)                    # => 0
+Integer.sqrt(4.0)                  # => 2
+Integer.sqrt(24)                   # => 4
+Integer.sqrt(25)                   # => 5
+Integer.sqrt(10**400)              # => 10**200
+```
 
-When `ndigits` is negative, the returned value has at least `ndigits.abs` trailing zeros:
+### succ
 
-555.round(-1) # => 560
-555.round(-2) # => 600
-555.round(-3) # => 1000
--555.round(-2) # => -600
-555.round(-4) # => 0
+Returns the integer successor of `self`
 
-Returns `self` when `ndigits` is zero or positive.
+```ruby
+1.succ                             #=> 2
+-1.succ                            #=> 0
+```
 
-555.round # => 555
-555.round(1) # => 555
-555.round(50) # => 555
+### to_f
 
-If keyword argument `half` is given, and `self` is equidistant from the two candidate values, the rounding is according to the given `half` value:
+Returns `self` converted to a `Float`
 
-- `:up` or `nil`: round away from zero:
+```ruby
+1.to_f                             # => 1.0
+```
 
-  25.round(-1, half: :up) # => 30
-  (-25).round(-1, half: :up) # => -30
+### to_s
 
-- `:down`: round toward zero:
+Returns a `String` containing the place-value representation of `self` in the given radix
 
-  25.round(-1, half: :down) # => 20
-  (-25).round(-1, half: :down) # => -20
+```ruby
+12345.to_s                         # => "12345"
+12345.to_s(2)                      # => "11000000111001"
+```
 
-- `:even`: round toward the candidate whose last nonzero digit is even:
+### truncate
 
-  25.round(-1, half: :even) # => 20
-  15.round(-1, half: :even) # => 20
-  (-25).round(-1, half: :even) # => -20
+Returns `self` truncated to the given precision
 
-Raises and exception if the value for `half` is invalid.
+```ruby
+4.2.truncate                       # => 4
+-4.2.truncate                      # => -4
+```
 
-Related: [`Integer#truncate`](https://ruby-doc.org/3.3.6/Integer.html#method-i-truncate).
+### try_convert
 
-size → integer
+Returns the given value converted to an Integer
 
-Returns the number of bytes in the machine representation of `self`; the value is system-dependent:
-
-1.size # => 8
--1.size # => 8
-2147483647.size # => 8
-(256**10 - 1).size # => 10
-(256**20 - 1).size # => 20
-(256\*\*40 - 1).size # => 40
-
-succ → next_integer
-
-Returns the successor integer of `self` (equivalent to `self + 1`):
-
-1.succ #=> 2
--1.succ #=> 0
-
-Related: [`Integer#pred`](https://ruby-doc.org/3.3.6/Integer.html#method-i-pred) (predecessor value).
-
-Also aliased as: [next](https://ruby-doc.org/3.3.6/Integer.html#method-i-next)
-
-times {|i| ... } → self
-
-times → enumerator
-
-Calls the given block `self` times with each integer in `(0..self-1)`:
-
-a = []
-5.times {|i| a.push(i) } # => 5
-a # => [0, 1, 2, 3, 4]
-
-With no block given, returns an [`Enumerator`](https://ruby-doc.org/3.3.6/Enumerator.html).
-
-to_f → float
-
-Converts `self` to a Float:
-
-1.to_f # => 1.0
--1.to_f # => -1.0
-
-If the value of `self` does not fit in a [`Float`](https://ruby-doc.org/3.3.6/Float.html), the result is infinity:
-
-(10**400).to_f # => Infinity
-(-10**400).to_f # => -Infinity
-
-to_i → self
-
-Returns `self` (which is already an Integer).
-
-to_int → self
-
-Returns `self` (which is already an Integer).
-
-to_r → rational
-
-Returns the value as a rational.
-
-1.to_r #=> (1/1)
-(1<<64).to_r #=> (18446744073709551616/1)
-
-to_s(base = 10) → string
-
-Returns a string containing the place-value representation of `self` in radix `base` (in 2..36).
-
-12345.to_s # => "12345"
-12345.to_s(2) # => "11000000111001"
-12345.to_s(8) # => "30071"
-12345.to_s(10) # => "12345"
-12345.to_s(16) # => "3039"
-12345.to_s(36) # => "9ix"
-78546939656932.to_s(36) # => "rubyrules"
-
-Raises an exception if `base` is out of range.
-
-Also aliased as: [inspect](https://ruby-doc.org/3.3.6/Integer.html#method-i-inspect)
-
-truncate(ndigits = 0) → integer
-
-Returns `self` truncated (toward zero) to a precision of `ndigits` decimal digits.
-
-When `ndigits` is negative, the returned value has at least `ndigits.abs` trailing zeros:
-
-555.truncate(-1) # => 550
-555.truncate(-2) # => 500
--555.truncate(-2) # => -500
-
-Returns `self` when `ndigits` is zero or positive.
-
-555.truncate # => 555
-555.truncate(50) # => 555
-
-Related: [`Integer#round`](https://ruby-doc.org/3.3.6/Integer.html#method-i-round).
-
-upto(limit) {|i| ... } → self
-
-upto(limit) → enumerator
-
-Calls the given block with each integer value from `self` up to `limit`; returns `self`:
-
-a = []
-5.upto(10) {|i| a << i } # => 5
-a # => [5, 6, 7, 8, 9, 10]
-a = []
--5.upto(0) {|i| a << i } # => -5
-a # => [-5, -4, -3, -2, -1, 0]
-5.upto(4) {|i| fail 'Cannot happen' } # => 5
-
-With no block given, returns an [`Enumerator`](https://ruby-doc.org/3.3.6/Enumerator.html).
-
-zero? → true or false
-
-Returns `true` if `self` has a zero value, `false` otherwise.
-
-self | other → integer
-
-Bitwise OR; each bit in the result is 1 if either corresponding bit in `self` or `other` is 1, 0 otherwise:
-
-"%04b" % (0b0101 | 0b0110) # => "0111"
-
-Raises an exception if `other` is not an Integer.
-
-Related: Integer#& (bitwise AND), Integer#^ (bitwise EXCLUSIVE OR).
-
-~int → integer
-
-One’s complement: returns the value of `self` with each bit inverted.
-
-Because an integer value is conceptually of infinite length, the result acts as if it had an infinite number of one bits to the left. In hex representations, this is displayed as two periods to the left of the digits:
-
-sprintf("%X", ~0x1122334455) # => "..FEEDDCCBBAA"
+```ruby
+Integer.try_convert(1.25)          # => 1
+Integer.try_convert("1")           # => 1
+Integer.try_convert("a")           # => nil
+```

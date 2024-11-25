@@ -1,0 +1,322 @@
+---
+title: Float
+description: A Float object represents a sometimes-inexact real number using the native architecture’s double-precision floating point representation.
+---
+
+📖 <a href="http://www.ruby-doc.org/core/Float.html" target="_blank">Documentation</a>
+
+## Methods for Creating
+
+```ruby
+Float.new(1)                  # => 1.0
+float = 2.0                   # => 2.0
+```
+
+## Methods for Querying
+
+### eql?
+
+Returns true if other is a Float with the same value as `self`
+
+```ruby
+2.0.eql?(2.0)                 # => true
+2.0.eql?(1.0)                 # => false
+2.0.eql?(1)                   # => false
+```
+
+### finite?
+
+Returns whether `self` is finite
+
+```ruby
+2.0.finite?                   # => true
+1.0/0.0.finite?               # => false
+-1.0/0.0.finite?              # => false
+```
+
+### infinite?
+
+Returns whether `self` is infinite
+
+```ruby
+2.0.infinite?                 # => nil
+1.0/0.0.infinite?             # => 1
+-1.0/0.0.infinite?            # => -1
+```
+
+### nan?
+
+Returns whether `self` is a NaN (not-a-number)
+
+```ruby
+0.0/0.0.nan?                  # => true
+2.0.nan?                      # => false
+-1.0/0.0.nan?                 # => false
+```
+
+### negative?
+
+Returns whether `self` is negative
+
+```ruby
+-2.0.negative?                # => true
+2.0.negative?                 # => false
+```
+
+### positive?
+
+Returns whether `self` is positive
+
+```ruby
+2.0.positive?                # => true
+-2.0.positive?               # => false
+```
+
+### zero?
+
+Returns whether `self` is zero
+
+```ruby
+0.0.zero?                   # => true
+2.0.zero?                   # => false
+```
+
+## Methods for Comparing
+
+### between?
+
+Returns whether `self` is between the given values
+
+```ruby
+2.0.between?(1, 3)          # => true
+2.0.between?(1.0, 3.0)      # => true
+```
+
+### equal
+
+Returns whether `self` is equal to the given value
+
+```ruby
+2.0 == 2                    # => true
+2.0 == 2.0                  # => true
+```
+
+### less
+
+Returns whether `self` is less than the given value
+
+```ruby
+2.0 < 3                     # => true
+2.0 < 3.0                   # => true
+```
+
+### less or equal
+
+Returns whether `self` is less than or equal to the given value
+
+```ruby
+2.0 <= 3                   # => true
+2.0 <= 3.0                 # => true
+```
+
+### greater
+
+Returns whether `self` is greater than the given value
+
+```ruby
+2.0 > 1                    # => true
+2.0 > 1.0                  # => true
+```
+
+### greater or equal
+
+Returns whether `self` is greater than or equal to the given value
+
+```ruby
+2.0 >= 1                   # => true
+2.0 >= 1.0                 # => true
+```
+
+## Methods for Converting
+
+### %
+
+Returns `self` modulo the given value
+
+```ruby
+10.0 % 2                  # => 0.0
+10.0 % 3                  # => 1.0
+10.0 % 4.0                # => 2.0
+```
+
+### *
+
+Returns the product of `self` and the given value
+
+```ruby
+3.14 * 2                # => 6.28
+3.14 * 2.0              # => 6.28
+```
+
+### **
+
+Returns the value of `self` raised to the power of the given value
+
+```ruby
+3.14 ** 2               # => 9.8596
+3.14 ** -2              # => 0.1014239928597509
+```
+
+### +
+
+Returns the sum of `self` and the given value
+
+```ruby
+3.14 + 1                # => 4.140000000000001
+3.14 + 1.0              # => 4.140000000000001
+```
+
+### -
+
+Returns the difference of `self` and the given value
+
+```ruby
+3.14 - 1                # => 2.14
+3.14 - 1.0              # => 2.14
+```
+
+### /
+
+Returns the quotient of `self` and the given value
+
+```ruby
+3.14 / 2                # => 1.57
+3.14 / 2.0              # => 1.57
+```
+
+### abs
+
+Returns the absolute value of `self`
+
+```ruby
+34.56.abs               # => 34.56
+-34.56.abs              # => 34.56
+```
+
+### ceil
+
+Returns the smallest number greater than or equal to `self`
+
+```ruby
+12345.6789.ceil(1)      # => 12345.7
+12345.6789.ceil(3)      # => 12345.679
+```
+
+### coerce
+
+Returns a 2-element array containing the given value converted to a Float and `self`
+
+```ruby
+3.14.coerce(2)          # => [2.0, 3.14]
+3.14.coerce(2.0)        # => [2.0, 3.14]
+```
+
+### divmod
+
+Returns a 2-element array containing the quotient and remainder results of dividing `self` by the given value.
+
+```ruby
+11.0.divmod(4)          # => [2, 3.0]
+11.0.divmod(-4)         # => [-3, -1.0]
+```
+
+### fdiv
+
+Returns the Float result of dividing `self` by the given value
+
+```ruby
+3.14.fdiv(2)            # => 1.57
+3.14.fdiv(-2)           # => -1.57
+```
+
+### floor
+
+Returns the greatest number smaller than or equal to `self`
+
+```ruby
+12345.6789.floor(1)     # => 12345.6
+12345.6789.floor(3)     # => 12345.678
+```
+
+### next_float
+
+Returns the **next-larger** representable Float
+
+```ruby
+0.01.next_float         # => 0.010000000000000002
+1.0.next_float          # => 1.0000000000000002
+100.0.next_float        # => 100.00000000000001
+```
+
+### prev_float
+
+Returns the **next-smaller** representable Float
+
+```ruby
+0.01.prev_float         # => 0.009999999999999998
+1.0.prev_float          # => 0.9999999999999999
+100.0.prev_float        # => 99.99999999999999
+```
+
+### quo
+
+Returns the quotient from dividing `self` by the given value
+
+```ruby
+3.14.quo(2)             # => 1.57
+3.14.quo(-2)            # => -1.57
+```
+
+### rationalize
+
+Returns a simpler approximation of the value
+
+```ruby
+0.3.rationalize         # => (3/10)
+1.333.rationalize       # => (1333/1000)
+```
+
+### round
+
+Returns `self` rounded to the nearest value, to a given precision
+
+```ruby
+12345.6789.round(1)     # => 12345.7
+12345.6789.round(3)     # => 12345.679
+```
+
+### to_i
+
+Returns `self` truncated to an `Integer`
+
+```ruby
+1.2.to_i                # => 1
+(-1.2).to_i             # => -1
+```
+
+### to_s
+
+Returns a string containing the place-value representation of `self` in the given radix
+
+```ruby
+12345.6789.to_s         # => "12345.6789"
+```
+
+### truncate
+
+Returns `self` truncated to a given precision
+
+```ruby
+12345.6789.truncate(1)  # => 12345.6
+12345.6789.truncate(3)  # => 12345.678
+```

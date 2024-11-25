@@ -25,6 +25,8 @@ export const ROUTES: EachRoute[] = [
     items: [
       { title: 'Programming Basics', href: '/programming-basics' },
       { title: 'Array', href: '/array' },
+      { title: 'Float', href: '/float' },
+      { title: 'Hash', href: '/hash' },
       { title: 'Integer', href: '/integer' },
       { title: 'String', href: '/string' },
       { title: 'Conditionals and Loops', href: '/conditionals-and-loops' },
